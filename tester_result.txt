@@ -1,0 +1,104 @@
+
+
+1. pca + decision tree with pipeline and gridsearch
+
+GridSearchCV(cv=None, error_score='raise',
+       estimator=Pipeline(steps=[('PCA', PCA(copy=True, iterated_power='auto', n_components=None, random_state=None,
+  svd_solver='randomized', tol=0.0, whiten=False)), ('DecisionTreeClassifier', DecisionTreeClassifier(class_weight=None, criterion='gini', max_depth=None,
+            max_features=None, max_...t=2, min_weight_fraction_leaf=0.0,
+            presort=False, random_state=None, splitter='best'))]),
+       fit_params={}, iid=True, n_jobs=1,
+       param_grid={'DecisionTreeClassifier__min_samples_split': [2, 4, 5, 7, 10, 15, 17, 20, 25, 30, 40, 50], 'PCA__n_components': [1, 2, 3]},
+       pre_dispatch='2*n_jobs', refit=True, return_train_score=True,
+       scoring=None, verbose=0)
+	Accuracy: 0.84262	Precision: 0.47990	Recall: 0.27450	F1: 0.34924	F2: 0.30020
+	Total predictions: 13000	True positives:  549	False positives:  595	False negatives: 1451	True negatives: 10405
+
+
+2. Decision tree with gridsearch (with my feature without scaling)
+
+GridSearchCV(cv=None, error_score='raise',
+       estimator=DecisionTreeClassifier(class_weight=None, criterion='gini', max_depth=None,
+            max_features=None, max_leaf_nodes=None,
+            min_impurity_split=1e-07, min_samples_leaf=1,
+            min_samples_split=2, min_weight_fraction_leaf=0.0,
+            presort=False, random_state=None, splitter='best'),
+       fit_params={}, iid=True, n_jobs=1,
+       param_grid={'min_samples_split': [2, 5, 7, 10, 20, 50], 'criterion': ['gini', 'entropy']},
+       pre_dispatch='2*n_jobs', refit=True, return_train_score=True,
+       scoring=None, verbose=0)
+	Accuracy: 0.82915	Precision: 0.32543	Recall: 0.10300	F1: 0.15648	F2: 0.11931
+	Total predictions: 13000	True positives:  206	False positives:  427	False negatives: 1794	True negatives: 10573
+
+3. KNN with gridsearch (with my feature without scaling)
+
+features_list = ['poi','exercised_stock_options','to_messages','conversation_with_poi']
+
+
+	GridSearchCV(cv=None, error_score='raise',
+       estimator=KNeighborsClassifier(algorithm='auto', leaf_size=30, metric='minkowski',
+           metric_params=None, n_jobs=1, n_neighbors=5, p=2,
+           weights='distance'),
+       fit_params={}, iid=True, n_jobs=1,
+       param_grid={'n_neighbors': [2, 3, 4, 5, 6, 7, 8, 9, 10, 15, 20, 25, 30, 35, 40], 'p': [1, 2]},
+       pre_dispatch='2*n_jobs', refit=True, return_train_score=True,
+       scoring=None, verbose=0)
+	Accuracy: 0.86285	Precision: 0.57960	Recall: 0.39500	F1: 0.46982	F2: 0.42187
+	Total predictions: 13000	True positives:  790	False positives:  573	False negatives: 1210	True negatives: 10427
+
+4. KNN 
+
+GaussianNB(priors=None)
+	Accuracy: 0.82615	Precision: 0.15241	Recall: 0.02850	F1: 0.04802	F2: 0.03403
+	Total predictions: 13000	True positives:   57	False positives:  317	False negatives: 1943	True negatives: 10683
+
+
+5. DT 
+
+features_list = ['poi','exercised_stock_options','to_messages','deferral_payments'] without scaling
+
+GridSearchCV(cv=None, error_score='raise',
+       estimator=DecisionTreeClassifier(class_weight=None, criterion='gini', max_depth=None,
+            max_features=None, max_leaf_nodes=None,
+            min_impurity_split=1e-07, min_samples_leaf=1,
+            min_samples_split=2, min_weight_fraction_leaf=0.0,
+            presort=False, random_state=None, splitter='best'),
+       fit_params={}, iid=True, n_jobs=1,
+       param_grid={'min_samples_split': [2, 5, 7, 10, 20, 50], 'criterion': ['gini', 'entropy']},
+       pre_dispatch='2*n_jobs', refit=True, return_train_score=True,
+       scoring=None, verbose=0)
+	Accuracy: 0.84185	Precision: 0.46247	Recall: 0.17250	F1: 0.25127	F2: 0.19723
+	Total predictions: 13000	True positives:  345	False positives:  401	False negatives: 1655	True negatives: 10599
+
+6. DT
+
+features_list = ['poi','exercised_stock_options','to_messages']
+
+GridSearchCV(cv=None, error_score='raise',
+       estimator=DecisionTreeClassifier(class_weight=None, criterion='gini', max_depth=None,
+            max_features=None, max_leaf_nodes=None,
+            min_impurity_split=1e-07, min_samples_leaf=1,
+            min_samples_split=2, min_weight_fraction_leaf=0.0,
+            presort=False, random_state=None, splitter='best'),
+       fit_params={}, iid=True, n_jobs=1,
+       param_grid={'min_samples_split': [2, 5, 7, 10, 20, 50], 'criterion': ['gini', 'entropy']},
+       pre_dispatch='2*n_jobs', refit=True, return_train_score=True,
+       scoring=None, verbose=0)
+	Accuracy: 0.84562	Precision: 0.49573	Recall: 0.20300	F1: 0.28805	F2: 0.23018
+	Total predictions: 13000	True positives:  406	False positives:  413	False negatives: 1594	True negatives: 10587
+
+7. DT with features_list = ['poi','exercised_stock_options']
+
+
+GridSearchCV(cv=None, error_score='raise',
+       estimator=DecisionTreeClassifier(class_weight=None, criterion='gini', max_depth=None,
+            max_features=None, max_leaf_nodes=None,
+            min_impurity_split=1e-07, min_samples_leaf=1,
+            min_samples_split=2, min_weight_fraction_leaf=0.0,
+            presort=False, random_state=None, splitter='best'),
+       fit_params={}, iid=True, n_jobs=1,
+       param_grid={'min_samples_split': [2, 5, 7, 10, 20, 50], 'criterion': ['gini', 'entropy']},
+       pre_dispatch='2*n_jobs', refit=True, return_train_score=True,
+       scoring=None, verbose=0)
+	Accuracy: 0.90164	Precision: 0.44429	Recall: 0.32700	F1: 0.37673	F2: 0.34523
+	Total predictions: 11000	True positives:  327	False positives:  409	False negatives:  673	True negatives: 9591

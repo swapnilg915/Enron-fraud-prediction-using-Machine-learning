@@ -1,0 +1,10 @@
+(lp0
+S'poi'
+p1
+aS'exercised_stock_options'
+p2
+aS'to_messages'
+p3
+aS'conversation_with_poi'
+p4
+a.
